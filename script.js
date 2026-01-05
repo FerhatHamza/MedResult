@@ -109,22 +109,36 @@ const backBtn = document.getElementById('back-btn');
 function setLang(lang) {
     currentLang = lang;
     
-    // Set text direction and alignment
+    // Set Page Direction and Language Attribute
     if (lang === 'ar') {
-        document.body.style.direction = 'rtl';
+        document.documentElement.dir = 'rtl';
+        document.documentElement.lang = 'ar';
         document.body.style.textAlign = 'right';
     } else {
-        document.body.style.direction = 'ltr';
+        document.documentElement.dir = 'ltr';
+        document.documentElement.lang = lang;
         document.body.style.textAlign = 'left';
     }
 
+    // Update all text elements
     document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (translations[lang][key]) {
             el.innerText = translations[lang][key];
         }
     });
+
+    // Handle special case for the instruction container border
+    const instructions = document.getElementById('res-instructions');
+    if (lang === 'ar') {
+        instructions.classList.remove('border-l-4', 'rounded-r');
+        instructions.classList.add('border-r-4', 'rounded-l');
+    } else {
+        instructions.classList.remove('border-r-4', 'rounded-l');
+        instructions.classList.add('border-l-4', 'rounded-r');
+    }
 }
+
 
 // Initialize Default Language
 setLang('ar');
