@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Concours Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center text-slate-800 relative">
+
+    <div class="absolute top-5 right-5 z-20">
+        <button onclick="setLang('fr')" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-teal-50 text-sm font-bold">FR</button>
+        <button onclick="setLang('en')" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-teal-50 text-sm font-bold">EN</button>
+    </div>
+
+    <header class="w-full max-w-lg text-center mb-6 px-4">
+        <div class="mb-4 inline-block p-3 bg-white rounded-full shadow-sm text-teal-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-slate-800" data-key="title">Résultats du Concours</h1>
+        <p class="text-slate-500 mt-2" data-key="subtitle">Veuillez entrer vos informations pour consulter votre résultat.</p>
+    </header>
+
+    <main class="w-full max-w-lg bg-white rounded-xl shadow-lg border border-slate-100 p-8 relative z-10">
+        
+        <div id="search-view" class="fade-in">
+            <form id="search-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-key="lbl_name">Nom et Prénom</label>
+                    <input type="text" id="s-name" required class="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-key="lbl_email">Email</label>
+                    <input type="email" id="s-email" required class="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-key="lbl_phone">Téléphone</label>
+                    <input type="tel" id="s-phone" required class="w-full px-4 py-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition">
+                </div>
+
+                <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg shadow transition transform hover:-translate-y-0.5" data-key="btn_search">
+                    Voir le Résultat
+                </button>
+            </form>
+        </div>
+
+        <div id="result-view" class="hidden text-center fade-in">
+            <div id="res-icon" class="text-5xl mb-4"></div>
+            
+            <h2 id="res-title" class="text-2xl font-bold mb-1"></h2>
+            
+            <div class="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold mb-4 border border-slate-200">
+                <span data-key="rank_lbl">Classement:</span> <span id="res-rank" class="text-slate-900"></span>
+            </div>
+
+            <p id="res-msg" class="text-slate-600 mb-6 leading-relaxed"></p>
+
+            <div id="res-instructions" class="hidden bg-teal-50 border-l-4 border-teal-500 p-4 text-left text-sm text-teal-800 rounded-r">
+                <p class="font-bold mb-2" data-key="next_steps">Prochaines étapes :</p>
+                <ul class="list-disc list-inside space-y-1 opacity-90">
+                    <li data-key="step_1">Préparez vos documents originaux.</li>
+                    <li data-key="step_2">Présentez-vous à l'administration.</li>
+                    <li data-key="step_3">Vérifiez votre email pour la convocation.</li>
+                </ul>
+            </div>
+
+            <button id="back-btn" class="mt-8 text-sm text-slate-400 hover:text-teal-600 underline transition" data-key="btn_back">Retour à la recherche</button>
+        </div>
+
+        <div id="admin-view" class="hidden mt-8 pt-6 border-t border-dashed border-slate-300">
+            <h3 class="font-bold text-slate-800 mb-4">Administration</h3>
+            <form id="admin-form" class="space-y-3">
+                <input type="password" id="a-pass" placeholder="Password" class="w-full p-2 border rounded text-sm">
+                <input type="text" id="a-name" placeholder="Full Name" class="w-full p-2 border rounded text-sm">
+                <input type="email" id="a-email" placeholder="Email" class="w-full p-2 border rounded text-sm">
+                <input type="tel" id="a-phone" placeholder="Phone" class="w-full p-2 border rounded text-sm">
+                <div class="flex gap-2">
+                    <select id="a-status" class="w-1/2 p-2 border rounded text-sm bg-white">
+                        <option value="admis">Admis (Winner)</option>
+                        <option value="attente">Liste d'attente (Backup)</option>
+                        <option value="non_admis">Non Admis (Rejected)</option>
+                    </select>
+                    <input type="number" id="a-rank" placeholder="Ranking (e.g. 1)" class="w-1/2 p-2 border rounded text-sm">
+                </div>
+                <button type="submit" class="w-full bg-slate-800 text-white py-2 rounded text-sm hover:bg-black">Save Data</button>
+            </form>
+            <p id="admin-msg" class="text-xs text-center mt-2"></p>
+        </div>
+
+    </main>
+
+    <footer class="mt-10 text-center text-xs text-slate-400">
+        <p>Created by <span class="font-bold text-slate-600">Ferhat Hamza</span></p>
+        <p>Service Informatique, <span class="font-semibold text-slate-600">EPSP Berriane</span></p>
+        <div id="admin-trigger" class="h-6 w-full cursor-default mt-2"></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
