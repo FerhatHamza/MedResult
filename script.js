@@ -1,5 +1,5 @@
 // CONFIGURATION
-const API_URL = "https://YOUR_WORKER_URL_HERE.workers.dev"; // Paste your Cloudflare Worker URL here
+const API_URL = "medresultapi.ferhathamza17.workers.dev"; // Paste your Cloudflare Worker URL here
 
 // TRANSLATIONS
 const translations = {
