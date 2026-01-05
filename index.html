@@ -14,10 +14,12 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center text-slate-800 relative">
 
-    <div class="absolute top-5 right-5 z-20">
+    <div class="absolute top-5 right-5 z-20 flex gap-2">
+        <button onclick="setLang('ar')" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-teal-50 text-sm font-bold">AR</button>
         <button onclick="setLang('fr')" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-teal-50 text-sm font-bold">FR</button>
         <button onclick="setLang('en')" class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-teal-50 text-sm font-bold">EN</button>
     </div>
+
 
     <header class="w-full max-w-lg text-center mb-6 px-4">
         <div class="mb-4 inline-block p-3 bg-white rounded-full shadow-sm text-teal-600">
@@ -65,7 +67,7 @@
 
             <div id="res-instructions" class="hidden bg-teal-50 border-l-4 border-teal-500 p-4 text-left text-sm text-teal-800 rounded-r">
                 <p class="font-bold mb-2" data-key="next_steps">Prochaines étapes :</p>
-                <ul class="list-disc list-inside space-y-1 opacity-90">
+                <ul class="list-disc list-inside space-y-1 opacity-90 rtl:list-outside rtl:pr-5">
                     <li data-key="step_1">Présentez-vous à DRH.</li>
                     <li data-key="step_2">Préparez vos documents originaux:</li>
                     <li data-key="step_3">Copie de la carte nationale d’identité.</li>
