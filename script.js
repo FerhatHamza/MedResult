@@ -3,6 +3,35 @@ const API_URL = "https://medresultapi.ferhathamza17.workers.dev"; // Paste your 
 
 // TRANSLATIONS
 const translations = {
+    ar: {
+        title: "نتائج المسابقة",
+        subtitle: "يرجى إدخال معلوماتك للتحقق من نتيجتك.",
+        lbl_name: "الاسم واللقب",
+        lbl_email: "البريد الإلكتروني",
+        lbl_phone: "رقم الهاتف",
+        btn_search: "عرض النتيجة",
+        rank_lbl: "الترتيب:",
+        next_steps: "الخطوات التالية:",
+        step_1: "التقدم إلى مكتب الموارد البشرية (DRH).",
+        step_2: "تحضير الوثائق الأصلية التالية:",
+        step_3: "1. نسخة من بطاقة التعريف الوطنية.",
+        step_4: "2. شهادة الميلاد الأصلية.",
+        step_5: "3. نسخة من الشهادة التي تثبت الوضعية اتجاه الخدمة الوطنية.",
+        step_6: "4. شهادة الحالة العائلية (عند الاقتضاء).",
+        step_7: "5. شهادة عمل تثبت الخبرة المهنية المكتسبة.",
+        step_8: "6. مستخرج من صحيفة السوابق العدلية (القسيمة رقم 3) سارية المفعول.",
+        step_9: "7. شهادة طبية (طب عام وصدرية).",
+        step_10: "8. صورتان (02) شمسيتان.",
+        btn_back: "تحقق من مرشح آخر",
+        status_admis: "تهانينا، لقد تم قبولك!",
+        msg_admis: "نحن سعداء بانضمامك إلينا. يرجى اتباع التعليمات أدناه.",
+        status_attente: "قائمة الانتظار",
+        msg_attente: "أنت حالياً في قائمة الانتظار. في حال توفر منصب، سنتصل بك فوراً.",
+        status_non: "غير مقبول",
+        msg_non: "شكراً لمشاركتكم. نتمنى لكم التوفيق في مشاريعكم المستقبلية.",
+        status_notfound: "الملف غير موجود",
+        msg_notfound: "لم يتم العثور على نتيجة لهذه المعلومات. يرجى التحقق من المدخلات."
+    },
     fr: {
         title: "Résultats du Concours",
         subtitle: "Veuillez entrer vos informations pour consulter votre résultat.",
@@ -63,7 +92,7 @@ const translations = {
     }
 };
 
-let currentLang = 'fr';
+let currentLang = 'ar';
 
 // DOM ELEMENTS
 const searchForm = document.getElementById('search-form');
@@ -79,6 +108,16 @@ const backBtn = document.getElementById('back-btn');
 // --- LANGUAGE LOGIC ---
 function setLang(lang) {
     currentLang = lang;
+    
+    // Set text direction and alignment
+    if (lang === 'ar') {
+        document.body.style.direction = 'rtl';
+        document.body.style.textAlign = 'right';
+    } else {
+        document.body.style.direction = 'ltr';
+        document.body.style.textAlign = 'left';
+    }
+
     document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (translations[lang][key]) {
@@ -88,7 +127,7 @@ function setLang(lang) {
 }
 
 // Initialize Default Language
-setLang('fr');
+setLang('ar');
 
 // --- SEARCH LOGIC ---
 searchForm.addEventListener('submit', async (e) => {
